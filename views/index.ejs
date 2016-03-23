@@ -450,6 +450,7 @@ var currentUserName = '<%= user.local.name || user.facebook.name %>'
            })
            .done(function(data){
              console.log(data, 'going change')
+             console.log(data.message, 'this is message at top for going')
              if (data.message === 'show-users-going') {
                rsvp_list.html('')
                rsvp_title.text('Buds Going(' + data.users.going_buds + ' buds)')
@@ -484,13 +485,18 @@ var currentUserName = '<%= user.local.name || user.facebook.name %>'
                $(evt.target).children().eq(1).text(data.event_ob.going_buds)
                $(evt.target).siblings().children().eq(1).text(data.event_ob.maybe_buds)
              } else if (data.message === 'maybe went down 1 and going went up one'){
-               $(evt.target).children().eq(0).fadeIn('slow')
+               $(evt.target).children().eq(0).show()
                $(evt.target).siblings().children().eq(0).hide()
                $(evt.target).siblings().children().eq(1).text(data.data.maybe_buds)
                console.log(data.data.going_buds)
                $(evt.target).children().eq(1).text(data.data.going_buds)
+             } else if (data.message === 'going equal going stays the same'){
+               console.log('going takes away rsvp')
+               $(evt.target).children().eq(0).hide()
+               console.log(data.data.going_buds)
+               $(evt.target).children().eq(1).text(data.data.going_buds)
              } else {
-               $(evt.target).children().eq(0).fadeIn()
+               $(evt.target).children().eq(0).show()
                console.log(data.data.going_buds)
                $(evt.target).children().eq(1).text(data.data.going_buds)
              }
@@ -550,13 +556,18 @@ var currentUserName = '<%= user.local.name || user.facebook.name %>'
               $(evt.target).children().eq(1).text(data.event_ob.maybe_buds)
               $(evt.target).siblings().children().eq(1).text(data.event_ob.going_buds)
             } else if (data.message === 'maybe went up 1 and going went down one') {
-              $(evt.target).children().eq(0).fadeIn('slow')
+              $(evt.target).children().eq(0).show()
               $(evt.target).siblings().children().eq(0).hide()
               $(evt.target).siblings().children().eq(1).text(data.data.going_buds)
               console.log(data.data.maybe_buds)
               $(evt.target).children().eq(1).text(data.data.maybe_buds)
+            } else if (data.message === 'maybe stays the same') {
+              console.log('maybe takes away rsvp')
+              $(evt.target).children().eq(0).hide()
+              console.log(data.data.maybe_buds)
+              $(evt.target).children().eq(1).text(data.data.maybe_buds)
             } else {
-              $(evt.target).children().eq(0).fadeIn()
+              $(evt.target).children().eq(0).show()
               console.log(data.data.maybe_buds)
               $(evt.target).children().eq(1).text(data.data.maybe_buds)
             }

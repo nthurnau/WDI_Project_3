@@ -117,7 +117,8 @@ userRouter.patch('/events/:id', function(req, res){
             res.json({message: 'going went up 1', data: data})
           })
         } else if (event.going_buds_users.indexOf(req.user._id) !== -1 && event.maybe_buds_users.indexOf(req.user._id) === -1){
-          event.going_buds = event.going_buds
+          event.going_buds_users.splice(event.going_buds_users.indexOf(req.user._id), 1)
+          event.going_buds -= 1
           event.save(function(err, data){
             if (err) throw err
             res.json({message: 'going equal going stays the same', data: data})
@@ -154,11 +155,13 @@ userRouter.patch('/events/:id', function(req, res){
             res.json({message: 'going went up 1', data: data})
           })
         } else if (event.going_buds_users.indexOf(req.user._id) !== -1 && event.maybe_buds_users.indexOf(req.user._id) === -1){
-          event.going_buds = event.going_buds
+          event.going_buds_users.splice(event.going_buds_users.indexOf(req.user._id), 1)
+          event.going_buds -= 1
           // event.going_buds_users.splice(event.going_buds_users.indexOf(req.user._id), 1)
           // event.maybe_buds_users.push(req.user._id)
           // event.maybe_buds += 1
           // event.going_buds -= 1
+
           event.save(function(err, data){
             if (err) throw err
             res.json({message: 'going equal going stays the same', data: data})
@@ -217,7 +220,8 @@ userRouter.patch('/events/:id', function(req, res){
         })
       }
       else if (event.maybe_buds_users.indexOf(req.user._id) !== -1 && event.going_buds_users.indexOf(req.user._id) === -1) {
-        event.maybe_buds = event.maybe_buds
+        event.maybe_buds_users.splice(event.maybe_buds_users.indexOf(req.user._id), 1)
+        event.maybe_buds -= 1
         event.save(function(err, data){
           if (err) throw err
           res.json({message: 'maybe stays the same', data: data})
